@@ -10,13 +10,14 @@ let Event = require('./event.model');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/events', eventRoutes);
 
 mongoose.connect('mongodb://127.0.0.1:27017/events', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
-})
+});
 
 eventRoutes.route('/').get(function(req, res) {
 	Event.find(function(err, events) {
@@ -67,8 +68,17 @@ eventRoutes.route('/add').post(function(req, res) {
 	});
 });
 
-app.use('/events', eventRoutes);
-
 app.listen(PORT, function() {
 	console.log("Server is running on Port: " + PORT);
 });
+
+/*
+eventRoutes.route('/delete/:id').get(function(req, res) {
+	Event.findOneAndDelete({_id: req.params.id}, function(err, event) {
+		if(err)
+			res.json(err);
+		else
+			res.json('Event Deleted Successfully');
+	});
+});
+*/

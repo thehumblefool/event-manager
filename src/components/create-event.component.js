@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import TimePicker from 'react-time-picker';
+import axios from 'axios';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -64,6 +65,17 @@ export default class CreateEvent extends Component {
 		console.log(`Time: ${this.state.eventTime}`);
 		console.log(`Description: ${this.state.eventDescription}`);
 		console.log(`Follower Count: ${this.state.eventFollowerCount}`);
+
+		const newEvent = {
+			eventName: this.state.eventName,
+			eventDate: this.state.eventDate.getFullYear() + "-" + (this.state.eventDate.getMonth()+1) + "-" + this.state.eventDate.getDate(),
+			eventTime: this.state.eventTime,
+			eventDescription: this.state.eventDescription,
+			eventFollowerCount: this.state.eventFollowerCount,
+		}
+
+		axios.post('http://localhost:4000/events/add', newEvent)
+		.then(res => console.log(res.data));
 
 		this.setState({
 			eventName: '',
