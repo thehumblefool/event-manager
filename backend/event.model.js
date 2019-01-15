@@ -7,7 +7,7 @@ let Event = new Schema({
 	},
 
 	eventDate: {
-		type: String
+		type: Date
 	},
 
 	eventTime: {

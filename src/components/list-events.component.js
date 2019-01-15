@@ -5,7 +5,7 @@ import axios from 'axios';
 const Event = props => (
 	<tr>
 		<td>{props.event.eventName}</td>
-		<td>{props.event.eventDate}</td>
+		<td>{new Date(props.event.eventDate).toLocaleString().split(',')[0]}</td>
 		<td>{props.event.eventTime}</td>
 		<td>{props.event.eventFollowerCount}</td>
 		<td><Link to={"/update/"+props.event._id} className="btn btn-primary">Edit</Link></td>	

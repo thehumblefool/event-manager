@@ -41,13 +41,13 @@ eventRoutes.route('/update/:id').post(function(req, res) {
 			res.status(404).send("Event Not Found");
 		else
 			event.eventName = req.body.eventName;
-			event.eventDate = req.body.eventDate;
+			event.eventDate = new Date(req.body.eventDate);
 			event.eventTime = req.body.eventTime;
 			event.eventDescription = req.body.eventDescription;
 			event.eventFollowerCount = req.body.eventFollowerCount;
 
 			event.save().then(event => {
-				res.json('Event Updated');
+				res.status(200).send(event);
 			}).catch(err => {
 				res.status(400).send("Update failed");
 			});
@@ -58,9 +58,13 @@ eventRoutes.route('/add').post(function(req, res) {
 	let event = new Event(req.body);
 	console.log(req.body.eventName);
 	console.log(req.body.eventDate);
+	console.log(typeof req.body.eventDate);
 	console.log(req.body.eventTime);
 	console.log(req.body.eventDescription);
 	console.log(req.body.eventFollowerCount);
+	event.eventDate = new Date(event.eventDate);
+
+	console.log(typeof event.eventDate);
 	event.save().then(event => {
 		res.status(200).json({'Event': 'Event Created Successfully'});
 	}). catch(err => {
@@ -75,8 +79,8 @@ app.listen(PORT, function() {
 eventRoutes.route('/delete/:id').delete(function(req, res) {
 	Event.findOneAndDelete({_id: req.params.id}, function(err, event) {
 		if(err)
-			res.json(err);
+			res.status(400).send(err);
 		else
-			res.json('Event Deleted Successfully');
+			res.status(200).send('Event Deleted Successfully');
 	});
 });

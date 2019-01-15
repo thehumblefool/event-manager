@@ -62,13 +62,14 @@ export default class CreateEvent extends Component {
 		console.log(`Form Submitted`);
 		console.log(`Name: ${this.state.eventName}`);
 		console.log(`Date: ${this.state.eventDate}`);
+		console.log(`Date: ${this.state.eventDate.toISOString()}`);
 		console.log(`Time: ${this.state.eventTime}`);
 		console.log(`Description: ${this.state.eventDescription}`);
 		console.log(`Follower Count: ${this.state.eventFollowerCount}`);
 
 		const newEvent = {
 			eventName: this.state.eventName,
-			eventDate: this.state.eventDate.getFullYear() + "-" + (this.state.eventDate.getMonth()+1) + "-" + this.state.eventDate.getDate(),
+			eventDate: this.state.eventDate.toISOString(),
 			eventTime: this.state.eventTime,
 			eventDescription: this.state.eventDescription,
 			eventFollowerCount: this.state.eventFollowerCount,
