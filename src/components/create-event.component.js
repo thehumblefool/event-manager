@@ -85,7 +85,7 @@ export default class CreateEvent extends Component {
 			eventFollowerCount: '',
 		})
 
-	}
+	}	
 
 	render() {
 		return (

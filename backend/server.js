@@ -72,8 +72,7 @@ app.listen(PORT, function() {
 	console.log("Server is running on Port: " + PORT);
 });
 
-/*
-eventRoutes.route('/delete/:id').get(function(req, res) {
+eventRoutes.route('/delete/:id').delete(function(req, res) {
 	Event.findOneAndDelete({_id: req.params.id}, function(err, event) {
 		if(err)
 			res.json(err);
@@ -81,4 +80,3 @@ eventRoutes.route('/delete/:id').get(function(req, res) {
 			res.json('Event Deleted Successfully');
 	});
 });
-*/

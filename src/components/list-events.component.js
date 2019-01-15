@@ -8,7 +8,7 @@ const Event = props => (
 		<td>{props.event.eventDate}</td>
 		<td>{props.event.eventTime}</td>
 		<td>{props.event.eventFollowerCount}</td>
-		<td><Link to={"/update/"+props.event._id} className="btn btn-primary">Edit</Link></td>
+		<td><Link to={"/update/"+props.event._id} className="btn btn-primary">Edit</Link></td>	
 		<td><Link to={"/delete/"+props.event._id} className="btn btn-danger">Delete</Link></td>
 	</tr>
 );
