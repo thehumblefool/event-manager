@@ -35,7 +35,7 @@ eventRoutes.route('/:id').get(function(req, res) {
 	});
 });
 
-eventRoutes.route('/update/:id').post(function(req, res) {
+eventRoutes.route('/update/:id').put(function(req, res) {
 	Event.findById(req.params.id, function(err, event) {
 		if(!event)
 			res.status(404).send("Event Not Found");
@@ -47,6 +47,7 @@ eventRoutes.route('/update/:id').post(function(req, res) {
 			event.eventFollowerCount = req.body.eventFollowerCount;
 
 			event.save().then(event => {
+				console.log('Event updated Successfully');
 				res.status(200).send(event);
 			}).catch(err => {
 				res.status(400).send("Update failed");
@@ -58,15 +59,14 @@ eventRoutes.route('/add').post(function(req, res) {
 	let event = new Event(req.body);
 	console.log(req.body.eventName);
 	console.log(req.body.eventDate);
-	console.log(typeof req.body.eventDate);
 	console.log(req.body.eventTime);
 	console.log(req.body.eventDescription);
 	console.log(req.body.eventFollowerCount);
 	event.eventDate = new Date(event.eventDate);
 
-	console.log(typeof event.eventDate);
 	event.save().then(event => {
-		res.status(200).json({'Event': 'Event Created Successfully'});
+		console.log('Event created successfully\n');
+		res.status(200).json({'Event': 'Event Created Successfully'});		
 	}). catch(err => {
 		res.status(400).send('Event creation Unsuccessful');
 	});

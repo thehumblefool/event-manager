@@ -76,7 +76,7 @@ export default class CreateEvent extends Component {
 		}
 
 		axios.post('http://localhost:4000/events/add', newEvent)
-		.then(res => console.log(res.data));
+		.then(res => {console.log(res.data); alert('Event Created');});
 
 		this.setState({
 			eventName: '',
@@ -104,7 +104,7 @@ export default class CreateEvent extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Date: </label>
+                        <label>Date: </label> <br/>
                         <DatePicker 
                                 className="form-control"
                                 selected={this.state.eventDate}

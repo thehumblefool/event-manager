@@ -12,8 +12,7 @@ export default class DeleteEvent extends Component {
 	componentDidMount() {
 		axios.delete('http://localhost:4000/events/delete/'+this.state.id)
 		.then(res => this.setState({deleted: true}))
-		.catch(err => console.log(err));	
-      	
+		.catch(err => console.log(err));
 	}
 
 	render() {

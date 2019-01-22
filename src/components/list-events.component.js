@@ -52,7 +52,7 @@ export default class ListEvents extends Component {
 							<th>Date</th>
 							<th>Time</th>
 							<th>Followers</th>
-							<th>Actions</th>
+							<th colSpan={2}>Actions</th>
 						</tr>
 					</thead>
 					<tbody>

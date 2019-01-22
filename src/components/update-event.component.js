@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import TimePicker from 'react-time-picker';
 import axios from 'axios';
@@ -27,28 +26,17 @@ export default class UpdateEvent extends Component {
 			eventFollowerCount: '',
 			updated: false
 		}
-
-		axios.get('http://localhost:4000/events/'+props.match.params.id)
-		.then(res => {
-			this.setState({		eventName: res.data.eventName,
-								eventDate: new Date(res.data.eventDate),
-								eventTime: res.data.eventTime,
-								eventDescription: res.data.eventDescription,
-								eventFollowerCount: res.data.eventFollowerCount
-						});
-		}).catch(err => { console.log('Unable to update: ' + err);});
-
 	}
 
 	componentDidMount() {
 		axios.get('http://localhost:4000/events/'+this.state._id)
 		.then(res => {
-			this.state.eventName= res.data.eventName;
-			this.state.eventDate= new Date(res.data.eventDate);
-			this.state.eventTime= res.data.eventTime;
-			this.state.Description= res.data.Description;
-			this.state.eventFollowerCount= res.data.eventFollowerCount;
-		}).catch(err => { console.log('Unable to update: ' + err);});	
+			this.setState({eventName: res.data.eventName})
+			this.setState({eventDate: new Date(res.data.eventDate)});
+			this.setState({eventTime: res.data.eventTime});
+			this.setState({eventDescription: res.data.eventDescription});
+			this.setState({eventFollowerCount: res.data.eventFollowerCount});
+		}).catch(err => { console.log('Unable to load data: ' + err);});	
       	
 	}
 
@@ -101,28 +89,23 @@ export default class UpdateEvent extends Component {
 			eventFollowerCount: this.state.eventFollowerCount,
 		}
 
-		axios.post('http://localhost:4000/events/update/'+this.state._id, newEvent)
-		.then(res => { console.log(res.data); alert('Updated')});
-
-		this.setState({
-			eventName: '',
-			eventDate: null,
-			eventTime: null,
-			eventDescription: '',
-			eventFollowerCount: '',
-			updated:true
-		});
-
+		axios.put('http://localhost:4000/events/update/'+this.state._id, newEvent)
+		.then(res => 
+			{ 
+				console.log(res.data); 
+				alert('Updated');
+				this.setState({
+						eventName: res.data.eventName,
+						eventDate: new Date(res.data.eventDate),
+						eventTime: res.data.eventTime,
+						eventDescription: res.data.eventDescription,
+						eventFollowerCount: res.data.eventFollowerCount,
+						updated:true
+				});
+			});
 	}
 	
 	render() {
-		if(this.state.updated) {
-			return (
-				<div>	
-					<Redirect to='/' />
-				</div>
-			);
-		}
 		return (
             <div style={{marginTop: 10}}>
                 <h3>Update Event</h3>
@@ -138,7 +121,7 @@ export default class UpdateEvent extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label>Date: </label>
+                        <label>Date: </label> <br/>
                         <DatePicker 
                                 className="form-control"
                                 selected={this.state.eventDate}
